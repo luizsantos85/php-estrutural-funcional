@@ -1,0 +1,19 @@
+{
+    "name": "cuelho/secao3",
+    "description": "Trabalhando com PHP estruturado de outro jeito",
+    "authors": [
+        {
+            "name": "Luiz Henrique Santos",
+            "email": "luiz.santos85@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload":{
+        "files":[
+            "app/router/router.php"
+        ],
+        "psr-4": {
+            "app\\": "app"
+        }
+    }
+}
