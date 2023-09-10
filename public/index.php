@@ -2,4 +2,11 @@
 
 require_once "./bootstrap.php";
 
-router();
+
+try {
+    router();
+} catch (\Exception $e) {
+    echo '<pre>';
+    print_r($e->getMessage());
+    echo '</pre>';
+}

@@ -56,7 +56,7 @@ function paramsUri($uri, $matchedUri)
     if (!empty($matchedUri)) { // Verifica se há uma correspondência de URI.
         $matchedToGetParams = array_keys($matchedUri)[0]; // Obtém a primeira chave da matriz de correspondência.
         return array_diff(
-            explode('/', ltrim($uri, '/')), // Divide a URI em partes e remove a barra inicial.
+            $uri,
             explode('/', ltrim($matchedToGetParams, '/')) // Divide a URI correspondente em partes e remove a barra inicial.
         );
     }
@@ -65,7 +65,6 @@ function paramsUri($uri, $matchedUri)
 
 function paramsFormat($uri,$params)
 {
-    $uri = explode('/', ltrim($uri, '/'));
     $paramsData = [];
     foreach ($params as $index => $param) {
         $paramsData[$uri[$index - 1]] = $param;
@@ -74,25 +73,47 @@ function paramsFormat($uri,$params)
 }
 
 /**
- * Undocumented function
+ * Esta função é responsável por rotear as solicitações HTTP para controladores com base nas rotas definidas.
+ *
+ * Ela começa obtendo a URI atual da solicitação e as rotas definidas.
+ * Primeiro, tenta encontrar uma correspondência exata entre a URI e as rotas.
+ * Se nenhuma correspondência exata for encontrada, ele tenta corresponder usando expressões regulares.
+ * Se uma correspondência for encontrada, carrega o controlador correspondente.
+ * Caso contrário, lança uma exceção informando que algo deu errado na rota.
  *
  * @return void
  */
 function router()
 {
+    // Obtém a URI da solicitação atual
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
+    // Obtém as rotas definidas
     $routes = routes();
+
+    // Tenta encontrar uma correspondência exata entre a URI e as rotas
     $matchedUri = exactMatchUriInArrayRoutes($uri, $routes);
 
+    $params = [];
+
+    // Se não houver correspondência exata, tenta corresponder usando expressões regulares
     if (empty($matchedUri)) {
         $matchedUri = regularExpressionMatchArrayRoutes($uri, $routes);
-        $params = paramsUri($uri, $matchedUri);
-        $params = paramsFormat($uri,$params);
 
-        echo '<pre>';
-        print_r($params['user']);
-        echo '</pre>';
-        exit;
+        // Divide a URI em partes e extrai parâmetros, se houver
+        $uri = explode('/', ltrim($uri, '/'));
+        $params = paramsUri($uri, $matchedUri);
+
+        // Formata os parâmetros
+        $params = paramsFormat($uri, $params);
     }
+
+    // Se uma correspondência for encontrada, carrega o controlador correspondente
+    if (!empty($matchedUri)) {
+        loadController($matchedUri,$params);
+        return;
+    }
+
+    // Se não houver correspondência, lança uma exceção informando que algo deu errado na rota
+    throw new Exception("Opss... Algo deu errado na sua rota.", 1);
 }
