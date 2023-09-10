@@ -6,7 +6,9 @@ class HomeController
 {
     public function index($params)
     {
-        var_dump($params);
-        die();
+        return [
+            'view' => 'home/index.php',
+            'data' => ['title' => 'HOME', 'teste' => 'teste']
+        ];
     }
 }

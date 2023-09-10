@@ -30,5 +30,5 @@ function loadController($matchedUri, $params)
     }
 
     // Chama o método do controlador, passando os parâmetros
-    $controllerInstance->$method($params);
+    return $controllerInstance->$method($params);
 }

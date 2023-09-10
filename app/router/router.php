@@ -110,8 +110,7 @@ function router()
 
     // Se uma correspondência for encontrada, carrega o controlador correspondente
     if (!empty($matchedUri)) {
-        loadController($matchedUri,$params);
-        return;
+        return loadController($matchedUri,$params);
     }
 
     // Se não houver correspondência, lança uma exceção informando que algo deu errado na rota
