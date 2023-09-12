@@ -8,7 +8,7 @@ class HomeController
     {
         return [
             'view' => 'home/index.php',
-            'data' => ['title' => 'HOME', 'teste' => 'teste']
+            'data' => ['title' => 'HOME']
         ];
     }
 }

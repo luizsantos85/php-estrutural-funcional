@@ -1,3 +1,1 @@
-<h2><?= $title; ?></h2>
-
-<p><?= $teste; ?></p>
+<h2><?= $title; ?> - TESTE</h2>

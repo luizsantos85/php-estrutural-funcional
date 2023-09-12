@@ -14,6 +14,10 @@ try {
         throw new Exception("View '{$data['view']}' não existe.", 1);
     }
     
+    if(!isset($data['data'])){
+        throw new Exception("O indice data não existe.", 1);
+    }
+    
     extract($data['data']);
     $view = $data['view'];
     

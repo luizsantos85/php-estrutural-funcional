@@ -12,7 +12,10 @@
         "files":[
             "app/router/router.php",
             "app/core/controller.php",
-            "app/helpers/constants.php"
+            "app/helpers/constants.php",
+            "app/helpers/redirects.php",
+            "app/database/connect.php",
+            "app/database/fetch.php"
         ],
         "psr-4": {
             "app\\": "app"
