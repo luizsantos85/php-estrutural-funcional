@@ -10,11 +10,7 @@
 
 <body>
     <!-- menu -->
-    <nav class="nav justify-content-center">
-      <a class="nav-link active" href="/">Home</a>
-      <a class="nav-link" href="/user">Usuários</a>
-      <a class="nav-link disabled" href="#">Disabled link</a>
-    </nav>
+    <?php require VIEWS.'partials/header.php'; ?>
 
     <div class="container">
         <?php require_once VIEWS.$view; ?>

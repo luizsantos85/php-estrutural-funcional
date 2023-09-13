@@ -1,10 +1,5 @@
 <?php
 
-function routes()
-{
-    return require_once "routes.php";
-}
-
 /**
  * Esta função verifica se uma URI exata existe em um array de rotas.
  * Ela recebe uma URI e um array de rotas como argumentos.
@@ -18,11 +13,8 @@ function routes()
 function exactMatchUriInArrayRoutes($uri, $routes)
 {
     // Verifica se a URI é uma chave no array de rotas.
-    if (array_key_exists($uri, $routes)) {
-        return [$uri => $routes[$uri]]; // Retorna um array associativo com a rota correspondente.
-    }
-
-    return [];
+    // Retorna um array associativo com a rota correspondente.
+    return  (array_key_exists($uri, $routes)) ? [$uri => $routes[$uri]] : [];
 }
 
 /**
@@ -89,16 +81,17 @@ function router()
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
     // Obtém as rotas definidas
-    $routes = routes();
+    $routes = require_once "routes.php";
+    $requestMethod = $_SERVER['REQUEST_METHOD'];
 
     // Tenta encontrar uma correspondência exata entre a URI e as rotas
-    $matchedUri = exactMatchUriInArrayRoutes($uri, $routes);
+    $matchedUri = exactMatchUriInArrayRoutes($uri, $routes[$requestMethod]);
 
     $params = [];
 
     // Se não houver correspondência exata, tenta corresponder usando expressões regulares
     if (empty($matchedUri)) {
-        $matchedUri = regularExpressionMatchArrayRoutes($uri, $routes);
+        $matchedUri = regularExpressionMatchArrayRoutes($uri, $routes[$requestMethod],);
 
         // Divide a URI em partes e extrai parâmetros, se houver
         $uri = explode('/', ltrim($uri, '/'));
