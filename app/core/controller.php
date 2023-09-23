@@ -30,5 +30,11 @@ function loadController($matchedUri, $params)
     }
 
     // Chama o método do controlador, passando os parâmetros
-    return $controllerInstance->$method($params);
+    $controller = $controllerInstance->$method($params);
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        die();
+    }
+
+    return $controller;
 }

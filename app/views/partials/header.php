@@ -12,12 +12,25 @@
 
         <!-- Links à direita -->
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link text-light" href="/login">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-light" href="/register">Cadastro</a>
-            </li>
+            <?php if (logged()) : ?>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light" href="#" role="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        Minha Conta
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#"><?= userLogged()->name; ?></a></li>
+                        <li><a class="dropdown-item" href="/logout">Sair</a></li>
+                    </ul>
+                </li>
+            <?php else : ?>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="/register">Cadastro</a>
+                </li>
+
+            <?php endif; ?>
         </ul>
     </div>
 </nav>

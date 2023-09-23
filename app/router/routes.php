@@ -14,6 +14,7 @@ return [
         '/user/edit/[0-9]+' => 'UserController@edit',
         
         '/login' => 'AuthController@login',
+        '/logout' => 'AuthController@logout',
         '/register' => 'AuthController@register',
     ],
 ];
