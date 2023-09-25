@@ -32,4 +32,24 @@ class UserController
     public function edit($params)
     {
     }
+
+    public function create()
+    {
+        return [
+            'view' => 'user/create.php',
+            'data' => ['title' => 'Cadastro de Usuário']
+        ];
+    }
+    public function store()
+    {
+        $validate = validate([
+            'name' => 'required',
+            'email' => 'email|unique',
+            'password' => 'required|maxlen',
+        ]);
+
+        if(!$validate){
+            return redirect('/user/create');
+        }
+    }
 }

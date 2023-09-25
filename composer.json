@@ -16,6 +16,7 @@
             "app/helpers/redirects.php",
             "app/helpers/flash.php",
             "app/helpers/sessions.php",
+            "app/helpers/validate.php",
             "app/database/connect.php",
             "app/database/fetch.php"
         ],

@@ -3,6 +3,7 @@
 return [
     "POST" =>[
         '/login' => 'AuthController@login_store',
+        '/user/store' => 'UserController@store',
 
     ],
     

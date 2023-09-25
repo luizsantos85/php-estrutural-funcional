@@ -43,4 +43,9 @@ class AuthController
         unset($_SESSION[LOGGED]);
         return redirect('/');
     }
+
+    public function register()
+    {
+        
+    }
 }

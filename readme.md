@@ -1,6 +1,6 @@
 ## Sobre 📕
 
-Sistema desenvolvido para fins de estudo
+Sistema desenvolvido para fins de estudo, php estrutural de forma mais organizada.
 
 ---
 

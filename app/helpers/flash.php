@@ -2,7 +2,7 @@
 function setFlash(string $index, string $message, string  $type = 'danger')
 {
     if (!isset($_SESSION['flash'][$index])) {
-        $_SESSION['flash'][$index] = "<span class='alert alert-{$type} p-1'>{$message}</span>";
+        $_SESSION['flash'][$index] = "<span class='text-{$type} p-1'>{$message}</span>";
     }
 }
 
