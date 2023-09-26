@@ -40,16 +40,21 @@ class UserController
             'data' => ['title' => 'Cadastro de Usuário']
         ];
     }
+
     public function store()
     {
         $validate = validate([
             'name' => 'required',
-            'email' => 'email|unique',
-            'password' => 'required|maxlen',
+            'email' => 'email|unique:users',
+            'password' => 'required|maxlen:10',
         ]);
 
         if(!$validate){
             return redirect('/user/create');
         }
+
+        echo '<pre>';
+        print_r($validate);
+        echo '</pre>';exit;
     }
 }
