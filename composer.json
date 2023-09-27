@@ -18,6 +18,7 @@
             "app/helpers/sessions.php",
             "app/helpers/validate.php",
             "app/database/connect.php",
+            "app/database/create.php",
             "app/database/fetch.php"
         ],
         "psr-4": {

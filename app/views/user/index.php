@@ -8,6 +8,8 @@
     </div>
 
     <div class="col-12">
+        <?= getFlash('message'); ?>
+
         <table class="table">
             <thead>
                 <tr>

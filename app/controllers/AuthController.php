@@ -6,6 +6,10 @@ class AuthController
 {
     public function login()
     {
+        if($_SESSION[LOGGED]){
+            return redirect('/');
+        }
+
         return [
             'view' => 'auth/login.php',
             'data' => ['title' => 'Login']

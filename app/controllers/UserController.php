@@ -53,8 +53,16 @@ class UserController
             return redirect('/user/create');
         }
 
-        echo '<pre>';
-        print_r($validate);
-        echo '</pre>';exit;
+        $validate['password'] = password_hash($validate['password'],PASSWORD_DEFAULT);
+
+        $userCreated = create('users', $validate);
+
+        if(!$userCreated){
+            setFlash('message','Opsss... Ocorreu um erro ao cadastrar, tente novamente em alguns segundos.');
+            return redirect('/user/create');
+        }
+
+        setFlash('message','Usuário cadastrado com sucesso.','success');
+        return redirect('/user');
     }
 }
