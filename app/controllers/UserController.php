@@ -45,7 +45,7 @@ class UserController
     {
         $validate = validate([
             'name' => 'required',
-            'email' => 'email|unique:users',
+            'email' => 'email|required|unique:users',
             'password' => 'required|maxlen:10',
         ]);
 
