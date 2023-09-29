@@ -1,3 +1,5 @@
+<?php $this->layout('template', ['title' => $title]) ?>
+
 <div class="row mt-5">
 
     <div class="col mr-auto">

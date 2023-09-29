@@ -10,7 +10,7 @@ try {
         throw new Exception("Indice de visualização não deifnida.", 1);
     }
     
-    if(!file_exists(VIEWS.$data['view'])){
+    if(!file_exists(VIEWS.$data['view'].'.php')){
         throw new Exception("View '{$data['view']}' não existe.", 1);
     }
     
@@ -18,10 +18,17 @@ try {
         throw new Exception("O indice data não existe.", 1);
     }
     
-    extract($data['data']);
-    $view = $data['view'];
+    // extract($data['data']);
+    // $view = $data['view'];
     
-    require_once VIEWS.'template.php';
+    // require_once VIEWS.'template.php';
+
+    // Create new Plates instance
+    $templates = new League\Plates\Engine(VIEWS);
+
+    // Render a template
+    echo $templates->render($data['view'], $data['data']);
+
 } catch (\Exception $e) {
     echo '<pre>';
     print_r($e->getMessage());

@@ -8,7 +8,7 @@ class UserController
     {
         $users = all('users');
         return [
-            'view' => 'user/index.php',
+            'view' => 'user/index',
             'data' => ['title' => 'USUÁRIOS', 'users' => $users]
         ];
     }
@@ -36,7 +36,7 @@ class UserController
     public function create()
     {
         return [
-            'view' => 'user/create.php',
+            'view' => 'user/create',
             'data' => ['title' => 'Cadastro de Usuário']
         ];
     }

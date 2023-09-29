@@ -11,7 +11,7 @@ class AuthController
         }
 
         return [
-            'view' => 'auth/login.php',
+            'view' => 'auth/login',
             'data' => ['title' => 'Login']
         ];
     }

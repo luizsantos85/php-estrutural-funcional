@@ -7,7 +7,7 @@ class HomeController
     public function index($params)
     {
         return [
-            'view' => 'home/index.php',
+            'view' => 'home/index',
             'data' => ['title' => 'HOME']
         ];
     }
