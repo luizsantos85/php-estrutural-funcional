@@ -19,6 +19,7 @@
             "app/helpers/flash.php",
             "app/helpers/sessions.php",
             "app/helpers/validate.php",
+            "app/helpers/helpers.php",
             "app/database/connect.php",
             "app/database/create.php",
             "app/database/fetch.php"
