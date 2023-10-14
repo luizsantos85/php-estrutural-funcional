@@ -16,21 +16,44 @@ class UserController
 
     public function show($params)
     {
-        if(!isset($params['user'])){
+        if (!isset($params['user'])) {
             redirect('/');
         }
 
-        $user = findBy('users','id', $params['user']);
+        $user = findBy('users', 'id', $params['user']);
 
-        echo '<pre>';
-        print_r($user);
-        echo '</pre>';exit;
-
+        return [
+            'view' => 'user/edit',
+            'data' => ['title' => 'Edição de Usuário', 'user' => $user]
+        ];
     }
 
 
-    public function edit($params)
+    public function update()
     {
+        $id = filter_input(INPUT_POST,'user_id',FILTER_SANITIZE_NUMBER_INT);
+        $validate = validate([
+            'name' => 'required',
+            'email' => 'email|required|uniqueUpdate',
+        ]);
+
+        if (!$validate) {
+            return redirect("/user/{$id}");
+        }
+
+        $updated = update(
+            'users',
+            $validate,
+            ['id' => $id]
+        );
+
+        if ($updated) {
+            setFlash('message', 'Usuário atualizado com sucesso.', 'success');
+            return redirect('/user');
+        }
+
+        setFlash('message', 'Opsss... Ocorreu um erro ao atualizar, tente novamente em alguns segundos.');
+        return redirect("/user/{$id}");
     }
 
     public function create()
@@ -49,20 +72,20 @@ class UserController
             'password' => 'required|maxlen:10',
         ]);
 
-        if(!$validate){
+        if (!$validate) {
             return redirect('/user/create');
         }
 
-        $validate['password'] = password_hash($validate['password'],PASSWORD_DEFAULT);
+        $validate['password'] = password_hash($validate['password'], PASSWORD_DEFAULT);
 
         $userCreated = create('users', $validate);
 
-        if(!$userCreated){
-            setFlash('message','Opsss... Ocorreu um erro ao cadastrar, tente novamente em alguns segundos.');
+        if (!$userCreated) {
+            setFlash('message', 'Opsss... Ocorreu um erro ao cadastrar, tente novamente em alguns segundos.');
             return redirect('/user/create');
         }
 
-        setFlash('message','Usuário cadastrado com sucesso.','success');
+        setFlash('message', 'Usuário cadastrado com sucesso.', 'success');
         return redirect('/user');
     }
 }

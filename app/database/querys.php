@@ -7,7 +7,6 @@ function all($table, $fields = '*')
 
         $query = $connect->query("select {$fields} from {$table}");
         return $query->fetchAll();
-
     } catch (PDOException $e) {
         echo '<pre>';
         print_r($e->getMessage());
@@ -15,7 +14,7 @@ function all($table, $fields = '*')
     }
 }
 
-function findBy($table,$field, $value, $fields = '*')
+function findBy($table, $field, $value, $fields = '*')
 {
     try {
         $connect = connectDb();
@@ -25,7 +24,6 @@ function findBy($table,$field, $value, $fields = '*')
         ]);
 
         return $prepare->fetch();
-        
     } catch (PDOException $e) {
         echo '<pre>';
         print_r($e->getMessage());
@@ -48,6 +46,35 @@ function create(string $table, array $data)
 
         $insert = $pdo->prepare($sql);
         return $insert->execute($data);
+    } catch (PDOException $e) {
+        echo '<pre>';
+        print_r($e->getMessage());
+        echo '</pre>';
+        exit;
+    }
+}
+
+function update(string $table, array $fields, array $where)
+{
+    try {
+        if (!isArrayAssociative($fields) || !isArrayAssociative($where)) {
+            throw new Exception("O array tem que ser associativo.", 1);
+        }
+        $pdo = connectDb();
+        $sql = "update {$table} set ";
+        foreach (array_keys($fields) as $field) {
+            $sql .= "{$field} = :{$field},";
+        }
+        $sql = trim($sql, ', ');
+
+        $whereFields = array_keys($where);
+        $sql .= " where {$whereFields[0]} = :{$whereFields[0]}";
+        $data = array_merge($fields, $where);
+
+        $prepare = $pdo->prepare($sql);
+        $prepare->execute($data);
+        return $prepare->rowCount();
+
     } catch (PDOException $e) {
         echo '<pre>';
         print_r($e->getMessage());
