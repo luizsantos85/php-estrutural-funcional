@@ -82,3 +82,29 @@ function update(string $table, array $fields, array $where)
         exit;
     }
 }
+
+function delete(string $table, array $where)
+{
+    try {
+        if (!isArrayAssociative($where)) {
+            throw new Exception("O array tem que ser associativo.", 1);
+        }
+
+        $pdo = connectDb();
+        $whereFields = array_keys($where);
+
+        $sql = "delete from {$table}";
+        $sql .= " where {$whereFields[0]} = :{$whereFields[0]}";
+
+        $prepare = $pdo->prepare($sql);
+        $prepare->execute($where);
+        return $prepare->rowCount();
+
+    } catch (PDOException $e) {
+        echo '<pre>';
+        print_r($e->getMessage());
+        echo '</pre>';
+        exit;
+    }
+    
+}

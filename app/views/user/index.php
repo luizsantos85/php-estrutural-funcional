@@ -29,7 +29,7 @@
                         <td> <?= $user->email; ?> </td>
                         <td>
                             <a href="/user/<?= $user->id; ?>" class="btn btn-sm btn-warning">Editar</a>
-                            <a href="/user/excluir/<?= $user->id; ?>" class="btn btn-sm btn-danger">Excluir</a>
+                            <a href="/user/<?= $user->id; ?>/excluir" class="btn btn-sm btn-danger">Excluir</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
