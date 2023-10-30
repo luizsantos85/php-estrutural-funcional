@@ -6,6 +6,10 @@ require_once "./bootstrap.php";
 try {
     $data = router();
 
+    if(isAjax()){
+        die;
+    }
+
     if(!isset($data['view'])){
         throw new Exception("Indice de visualização não deifnida.", 1);
     }

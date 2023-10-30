@@ -9,6 +9,7 @@ return [
     
     "GET" =>[
         '/' => 'HomeController@index',
+        '/api/users' => 'ApisController@users',
         '/user' => 'UserController@index',
         '/user/create' => 'UserController@create',
         '/user/[0-9]+' => 'UserController@show',
